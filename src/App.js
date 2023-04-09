@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import CardDisplay from "./Components/CardDisplay";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -27,7 +28,7 @@ function App() {
         setGameState(true)
       }
     };
-    
+
     updateBest();
   })
 
@@ -37,7 +38,9 @@ function App() {
       <button onClick={incrementScore}>Click me to add score</button>
       <p>Best Score: {best}</p>
       <p>Game Status: {String(gameState)}</p>
+      <CardDisplay/>
     </div>
+    
   );
 }
 
