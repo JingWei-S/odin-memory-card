@@ -27,9 +27,10 @@ function CardDisplay() {
   };
 
   //   shuffle every time
-//   const handleShuffleImages = () => {
-//     setImages(shuffleArray(images));
-//   };
+  const handleShuffleImages = () => {
+    setImages(shuffleArray(images));
+  };
+
   useEffect(() => {
     setImages(shuffleArray(images));
   }, []);
@@ -38,7 +39,7 @@ function CardDisplay() {
     <div className="card-display">
       {/* <button onClick={handleShuffleImages}>随机排序</button> */}
       {images.map((image, index) => (
-        <img src={image} alt={`image ${index + 1}`} />
+        <img src={image} alt={`image ${index + 1}`} onClick={handleShuffleImages} />
       ))}
     </div>
   );
