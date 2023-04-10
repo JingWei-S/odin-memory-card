@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-function CardDisplay() {
+function CardDisplay(props) {
   const [images, setImages] = useState([
-    "img/img1.png",
-    "img/img2.png",
-    "img/img3.png",
-    "img/img4.png",
-    "img/img5.png",
-    "img/img6.png",
-    "img/img7.png",
-    "img/img8.png",
-    "img/img9.png",
-    "img/img10.png",
-    "img/img11.png",
-    "img/img12.png",
+    { src: "/img/img1.png", clicked: false },
+    { src: "/img/img2.png", clicked: false },
+    { src: "/img/img3.png", clicked: false },
+    { src: "/img/img4.png", clicked: false },
+    { src: "/img/img5.png", clicked: false },
+    { src: "/img/img6.png", clicked: false },
+    { src: "/img/img7.png", clicked: false },
+    { src: "/img/img8.png", clicked: false },
+    { src: "/img/img9.png", clicked: false },
+    { src: "/img/img10.png", clicked: false },
+    { src: "/img/img11.png", clicked: false },
+    { src: "/img/img12.png", clicked: false },
   ]);
 
   // shuffle the array
@@ -27,8 +27,20 @@ function CardDisplay() {
   };
 
   //   shuffle every time
-  const handleShuffleImages = () => {
-    setImages(shuffleArray(images));
+  const handleShuffleImages = (e) => {
+    const curImageSrc = e.target.src.replace(/^.*\/\/[^/]+/, "");
+    // implement the logic to check if the image has been clicked or not
+    const newArray = [...images];
+    const imageIndex = images.findIndex((image) => image.src === curImageSrc);
+    if (newArray[imageIndex].clicked) {
+        props.stopGame();
+    } else {
+        // if not clicked
+        // add points
+      newArray[imageIndex].clicked = true;
+      setImages(shuffleArray(newArray));
+      props.incrementScore();
+    }
   };
 
   useEffect(() => {
@@ -39,7 +51,12 @@ function CardDisplay() {
     <div className="card-display">
       {/* <button onClick={handleShuffleImages}>随机排序</button> */}
       {images.map((image, index) => (
-        <img src={image} alt={`image ${index + 1}`} onClick={handleShuffleImages} />
+        <img
+          key={`image ${index + 1}`}
+          src={image.src}
+          alt={`image ${index + 1}`}
+          onClick={handleShuffleImages}
+        />
       ))}
     </div>
   );

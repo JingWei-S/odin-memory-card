@@ -11,36 +11,46 @@ function App() {
     setScore(score + 1);
   };
 
-  useEffect(() => {
-    const changeGameState = () => {
-      if (score > 5) {
-        setGameState(false);
-      }
-    };
+  const stopGame = () => {
+    setGameState(false);
+  };
 
-    document.addEventListener("click", changeGameState);
+  useEffect(() => {
+    if (!gameState) {
+      if (score > best) {
+        setBest(score);
+      }
+      setScore(0);
+    }
   });
+  // useEffect(() => {
+  //   const changeGameState = () => {
+  //     if (score > 5) {
+  //       setGameState(false);
+  //     }
+  //   };
+  //   document.addEventListener("click", changeGameState);
+  // });
 
-  useEffect(() => {
-    const updateBest = () => {
-      if (gameState === false) {
-        setBest(score)
-        setGameState(true)
-      }
-    };
+  // here is how I implement the game on logic
+  // useEffect(() => {
+  //   const updateBest = () => {
+  //     if (gameState === false) {
+  //       setBest(score)
+  //       setGameState(true)
+  //     }
+  //   };
 
-    updateBest();
-  })
+  //   updateBest();
+  // });
 
   return (
     <div className="App">
       <p>Current Score: {score}</p>
-      <button onClick={incrementScore}>Click me to add score</button>
       <p>Best Score: {best}</p>
       <p>Game Status: {String(gameState)}</p>
-      <CardDisplay/>
+      <CardDisplay incrementScore={incrementScore} stopGame={stopGame} />
     </div>
-    
   );
 }
 
