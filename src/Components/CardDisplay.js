@@ -27,7 +27,9 @@ function CardDisplay(props) {
       const curImageSrc = e.target.src.replace(/^.*\/\/[^/]+/, "");
       // implement the logic to check if the image has been clicked or not
       const newArray = [...images];
-      const imageIndex = images.findIndex((image) => image.src === curImageSrc);
+      // console.log(curImageSrc)
+      const imageIndex = images.findIndex((image) => curImageSrc.match(image.src));
+      // console.log(imageIndex)
       if (newArray[imageIndex].clicked) {
         props.stopGame();
       } else {
@@ -49,7 +51,7 @@ function CardDisplay(props) {
       {images.map((image, index) => (
         <img
           key={`image ${index + 1}`}
-          src={image.src}
+          src={process.env.PUBLIC_URL+image.src}
           alt={`image ${index + 1}`}
           onClick={handleShuffleImages}
         />
